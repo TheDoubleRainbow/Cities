@@ -1,0 +1,61 @@
+body {
+  background: #179352;
+  background-image: url("/img/seattle2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 10px;
+  padding-top: 90px; }
+
+#list {
+  list-style: none;
+  text-align: center;
+  height: 360px; }
+
+.listEl {
+  color: white;
+  text-shadow: 0px 0px 3px black;
+  font-size: 25px;
+  margin-bottom: 5px; }
+
+#history {
+  margin-bottom: 40px; }
+
+#o0 {
+  opacity: 1; }
+
+#o1 {
+  opacity: 0.9; }
+
+#o2 {
+  opacity: 0.8; }
+
+#o3 {
+  opacity: 0.7; }
+
+#o4 {
+  opacity: 0.6; }
+
+#o5 {
+  opacity: 0.5; }
+
+#o6 {
+  opacity: 0.4; }
+
+#o7 {
+  opacity: 0.3; }
+
+#o8 {
+  opacity: 0.2; }
+
+#o9 {
+  opacity: 0.1; }
+
+#button {
+  font-size: 25px;
+  height: 34px; }
+
+#mark {
+  position: relative;
+  top: -8px; }
+
+/*# sourceMappingURL=css.css.map */

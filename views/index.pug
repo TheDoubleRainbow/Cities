@@ -1,0 +1,32 @@
+html.no-js(lang='en')
+	head
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		title Cities
+		link(rel='stylesheet', href='/stylesheets/styles.css')
+		link(rel='stylesheet', href='/stylesheets/css.css')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js')
+		script(crossorigin src="https://unpkg.com/react@15/dist/react.js")
+		script(crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.js")
+	body
+		.row
+			#main.col-md-8.col-md-offset-2
+				#history
+					ul#list
+						li#o9.listEl Винница
+						li#o8.listEl Мукачево
+						li#o7.listEl Луганск
+						li#o6.listEl Кировоград
+						li#o5.listEl Саратов
+						li#o4.listEl Киев
+						li#o3.listEl Вильнюс
+						li#o2.listEl Минск
+						li#o1.listEl Нью-йорк
+						li#o0.listEl Мехико
+				#input.col-md-11.col-sm-11.col-xs-11.col-lg-11
+					.input-group
+						span.input-group-addon A
+						input#inputText.form-control(type='text')
+				button#button.btn.btn-success.col-lg-1.col-sm-1.col-xs-1.col-md-1
+					span#mark ✓
+	script(type='text/babel', src='/javascripts/app.js')
