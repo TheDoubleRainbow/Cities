@@ -11,6 +11,7 @@ html.no-js(lang='en')
 		script(crossorigin src="https://unpkg.com/react@15/dist/react.js")
 		script(crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.js")
 		script(src="/javascripts/animate.js")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js")
 	body
 		#notification.col-md-4.col-md-offset-4.col-lg-4.col-lg-offset-4.col-sm-8.col-sm-offset-2.col-xs-8.col-xs-offset-2
 		#start.col-md-4.col-md-offset-4
@@ -20,10 +21,5 @@ html.no-js(lang='en')
 					ul#list
 						
 				#input
-					.col-md-11.col-sm-11.col-xs-11.col-lg-11
-						.input-group
-							span.input-group-addon A
-							input#inputText.form-control(type='text')
-					button#button.btn.btn-primary.col-lg-1.col-sm-1.col-xs-1.col-md-1
-						span#mark ✓
+					
 	script(type='text/babel', src='/javascripts/app.js')
