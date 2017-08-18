@@ -117,7 +117,7 @@ class Input extends React.Component{
 		const startDiv = (
 			<div>
 				<div id="mainCity">Введите начальный город:</div>
-				<input>
+				<input />
 			</div>
 		)
 	}
