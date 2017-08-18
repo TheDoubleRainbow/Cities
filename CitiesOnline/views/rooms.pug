@@ -1,0 +1,26 @@
+html.no-js(lang='en')
+	head
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		title Cities
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/stylesheets/css.css')
+		link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css')
+		script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous")
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js')
+		script(crossorigin src="https://unpkg.com/react@15/dist/react.js")
+		script(crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.js")
+		script(src="/javascripts/animate.js")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js")
+	body
+		.row
+			header
+				#name.col-md-4.col-lg-4.col-sm-4.col-xs-4 Cities
+				#chooseRoom.col-md-4.col-lg-4.col-sm-4.col-xs-4 Choose room:
+				#createRoom.col-md-4.col-lg-4.col-sm-4.col-xs-4 Create room 
+					span#plus +
+			#rooms.col-md-8.col-md-offset-2
+				.room#1
+					.roomName New Room
+					.roomNo #1
+	script(type='text/babel', src='/javascripts/rooms.js')
