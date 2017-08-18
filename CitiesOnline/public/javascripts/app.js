@@ -6,7 +6,7 @@ class History extends React.Component{
 	render(){
 		return (
 			<ul id="list">
-				{data.cities.map(city => (<li className='listEl' key={city[1]} id={'o' + city[1]}>{city[0]}</li>))}
+				{data.data.cities.map(city => (<li className='listEl' key={city[1]} id={'o' + city[1]}>{city[0]}</li>))}
 			</ul>
 				)
 	}
@@ -91,10 +91,10 @@ class Input extends React.Component{
 	updateData(newCity) {
 		newCity = newCity[0].toUpperCase() + newCity.slice(1)
 		for(let i = 1; i < 9; i++){
-			data.cities[i-1][0] = data.cities[i][0];
+			data.data.cities[i-1][0] = data.data.cities[i][0];
 		}
-		data.cities[8][0] = newCity;
-		data.history.push(newCity);
+		data.data.cities[8][0] = newCity;
+		data.data.history.push(newCity);
 	}
 
 	submit() {
@@ -102,8 +102,8 @@ class Input extends React.Component{
 			if(this.text != '' && this.text != '-'){
 				if(this.text.length > 1){
 					let isRepeat = false;
-					for(var i = 0; i < data.history.length; i++){
-						if(data.history[i] == this.text) isRepeat = true
+					for(var i = 0; i < data.data.history.length; i++){
+						if(data.data.history[i] == this.text) isRepeat = true
 					}
 					if(!isRepeat){
 						this.checkCity(this.text)
@@ -122,7 +122,7 @@ class Input extends React.Component{
 				if(this.text[0].toUpperCase() == this.letter && this.text.length > 1){
 					let isRepeat = false;
 					for(var i = 0; i < data.history.length; i++){
-						if(data.history[i] == this.text) isRepeat = true
+						if(data.data.history[i] == this.text) isRepeat = true
 					}
 					if(!isRepeat){
 						this.checkCity(this.text)
@@ -190,13 +190,15 @@ class Input extends React.Component{
 	}
 }
 
-var data = {
+/*var data = {
 	cities: [["", 8], ["", 7], ["", 6], ["", 5], ["", 4], ["", 3], ["", 2], ["", 1], ["", 0]],
 	history: []
-}
+}*/
 
 ReactDOM.render(<Input />, document.getElementById('input'));
 ReactDOM.render(<History />, document.getElementById('history'));
 ReactDOM.render(<Notification text='Введите первый город' />, document.getElementById('notification'))
+	
+
 
 

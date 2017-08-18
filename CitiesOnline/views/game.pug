@@ -12,6 +12,8 @@ html.no-js(lang='en')
 		script(crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.js")
 		script(src="/javascripts/animate.js")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js")
+		script.
+			var data=!{JSON.stringify(room).replace(/<\//g, '<\\/')}
 	body
 		#notification.col-md-4.col-md-offset-4.col-lg-4.col-lg-offset-4.col-sm-8.col-sm-offset-2.col-xs-8.col-xs-offset-2
 		#start.col-md-4.col-md-offset-4
