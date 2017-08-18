@@ -5,9 +5,9 @@ gulp.task('autoprefixer', function () {
     var sourcemaps   = require('gulp-sourcemaps');
     var autoprefixer = require('autoprefixer');
 
-    return gulp.src('./stylesheets/*.css')
+    return gulp.src('./public/stylesheets/*.css')
         .pipe(sourcemaps.init())
         .pipe(postcss([ autoprefixer() ]))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('./stylesheets'));
+        .pipe(gulp.dest('./public/stylesheets'));
 });

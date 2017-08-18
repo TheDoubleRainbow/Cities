@@ -5,29 +5,25 @@ html.no-js(lang='en')
 		title Cities
 		link(rel='stylesheet', href='/stylesheets/styles.css')
 		link(rel='stylesheet', href='/stylesheets/css.css')
+		link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css')
+		script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous")
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js')
 		script(crossorigin src="https://unpkg.com/react@15/dist/react.js")
 		script(crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.js")
+		script(src="/javascripts/animate.js")
 	body
+		#notification.col-md-4.col-md-offset-4.col-lg-4.col-lg-offset-4.col-sm-8.col-sm-offset-2.col-xs-8.col-xs-offset-2
+		#start.col-md-4.col-md-offset-4
 		.row
 			#main.col-md-8.col-md-offset-2
 				#history
 					ul#list
-						li#o9.listEl Винница
-						li#o8.listEl Мукачево
-						li#o7.listEl Луганск
-						li#o6.listEl Кировоград
-						li#o5.listEl Саратов
-						li#o4.listEl Киев
-						li#o3.listEl Вильнюс
-						li#o2.listEl Минск
-						li#o1.listEl Нью-йорк
-						li#o0.listEl Мехико
+						
 				#input
 					.col-md-11.col-sm-11.col-xs-11.col-lg-11
 						.input-group
 							span.input-group-addon A
 							input#inputText.form-control(type='text')
-					button#button.btn.btn-success.col-lg-1.col-sm-1.col-xs-1.col-md-1
+					button#button.btn.btn-primary.col-lg-1.col-sm-1.col-xs-1.col-md-1
 						span#mark ✓
 	script(type='text/babel', src='/javascripts/app.js')
