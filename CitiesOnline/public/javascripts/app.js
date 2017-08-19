@@ -48,21 +48,8 @@ class Input extends React.Component{
 		this.letter = '',
 		this.setText = this.setText.bind(this),
 		this.checkCity = this.checkCity.bind(this),
-		this.submit = this.submit.bind(this),
 		this.emitSubmit = this.emitSubmit.bind(this)
 
-	}
-
-	setLetter = function(w){
-		let letter = w[w.length-1].toUpperCase();
-		if(letter != 'Ы' && letter != 'Ь' && letter != '-'){
-			this.letter = letter;
-			ReactDOM.render(<Input />, document.getElementById('input'))
-		}
-		else{
-			this.letter = w[w.length-2].toUpperCase();
-			ReactDOM.render(<Input />, document.getElementById('input'))
-		}
 	}
 
 	setText(e) {
@@ -88,19 +75,9 @@ class Input extends React.Component{
 		}
 	}
 
-	updateData(newCity) {
-		newCity = newCity[0].toUpperCase() + newCity.slice(1)
-		for(let i = 1; i < 9; i++){
-			data.data.cities[i-1][0] = data.data.cities[i][0];
-		}
-		data.data.cities[8][0] = newCity;
-		data.data.history.push(newCity);
-	}
-
-
 	emitSubmit(e){
 		if(e.key == 'Enter') {
-			this.submit()
+			this.checkCity(this.text)
 		}
 	}
 
@@ -108,12 +85,25 @@ class Input extends React.Component{
 		var that = this
 		axios.get('https://maps.googleapis.com/maps/api/geocode/json?address='+ city +'&key=AIzaSyB81xDY0BEAdi4uv-izLsDS4rnjGb1UgYg').then(function (response) {
     		if(response.data.results[0].address_components[0].short_name == city){
+    			console.log('oo')
     			if(!that.started){
-    				that.updateData(that.text);
-					that.setLetter(that.text);
-					document.getElementById('inputText').value = '';
-					ReactDOM.render(<History />, document.getElementById('history'));
-					that.started = true;
+    				axios.get('/sendCity?city='+city)
+  					.then(function (response) {
+  						if(response.data.status == 'ok'){
+  							data = response.data.data;
+  							that.letter = data.data.letter;
+							document.getElementById('inputText').value = '';
+  							ReactDOM.render(<Input />, document.getElementById('input'));
+  							ReactDOM.render(<History />, document.getElementById('history'));
+  						}
+  						else{
+  							ReactDOM.render(<Notification text={response.data.status} />, document.getElementById('notification'))
+  						}
+  					})
+  					.catch(function (error) {
+  						console.log(error)
+  						ReactDOM.render(<Notification text='Error' />, document.getElementById('notification'))
+  					});
 				}
 				else{
 					that.updateData(that.text);
@@ -146,11 +136,6 @@ class Input extends React.Component{
 			)
 	}
 }
-
-/*var data = {
-	cities: [["", 8], ["", 7], ["", 6], ["", 5], ["", 4], ["", 3], ["", 2], ["", 1], ["", 0]],
-	history: []
-}*/
 
 ReactDOM.render(<Input />, document.getElementById('input'));
 ReactDOM.render(<History />, document.getElementById('history'));

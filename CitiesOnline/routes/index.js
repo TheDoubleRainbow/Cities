@@ -51,9 +51,10 @@ router.get('/getData', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/SendCity', function(req, res, next) {
+router.get('/sendCity', function(req, res, next) {
   let city = req.query.city;
-  if
+  res.send(checkCity(city, 1))
+
 });
 
 router.get('/getCity', function(req, res, next) {
@@ -62,6 +63,8 @@ router.get('/getCity', function(req, res, next) {
 //-----------
 //functions |
 //-----------
+
+//rooms
 var findRoom = function(id){
 	for(var i = 0; i < rooms.length; i++){
 		if (rooms[i].id == id) {
@@ -81,48 +84,80 @@ var getId = function(){
 	return id+1
 }
 
+//game
+
+var setLetter = function(w, id){
+	let letter = w[w.length-1].toUpperCase();
+	if(letter != 'Ы' && letter != 'Ь' && letter != '-'){
+		findRoom(id).data.letter = letter;
+	}
+	else{
+		findRoom(id).data.letter = w[w.length-2].toUpperCase();
+	}
+}
+
+var updateRoomData = function(newCity, id){
+	newCity = newCity[0].toUpperCase() + newCity.slice(1)
+	for(let i = 1; i < 9; i++){
+		findRoom(id).data.cities[i-1][0] = findRoom(id).data.cities[i][0];
+	}
+	findRoom(id).data.cities[8][0] = newCity;
+	findRoom(id).data.history.push(newCity);
+}
+
+var addCity = function(city, id){
+	setLetter(city, id);
+	updateRoomData(city, id);
+
+	return { status: 'ok', data: findRoom(id)}
+}
+
 var checkCity = function(city, id) {
-		if(!this.started){
-			if(this.text != '' && this.text != '-'){
-				if(this.text.length > 1){
+	let message = {
+		status: 'error'
+	}
+		if(!findRoom(id).data.history[0]){
+			if(city != '' && city != '-'){
+				if(city.length > 1){
 					let isRepeat = false;
-					for(var i = 0; i < data.data.history.length; i++){
-						if(data.data.history[i] == this.text) isRepeat = true
+					for(var i = 0; i < findRoom(id).data.history.length; i++){
+						if(findRoom(id).data.history[i] == city) isRepeat = true
 					}
 					if(!isRepeat){
-						this.checkCity(this.text)
+						message = addCity(city, id);
 					}
 				}
 				else{
-					ReactDOM.render(<Notification text='Введите корректный город' />, document.getElementById('notification'))
+					message.status = 'Введите корректный город';
 				}
 			}
 			else{
-				ReactDOM.render(<Notification text='Поле не должно быть пустым' />, document.getElementById('notification'))
+				message.status = 'Поле не должно быть пустым';
 			}
 		}
 		else{
-			if(this.text != '' && this.text != '-'){
-				if(this.text[0].toUpperCase() == this.letter && this.text.length > 1){
+			if(city != '' && city != '-'){
+				if(city[0].toUpperCase() == findRoom(id).data.letter && city.length > 1){
 					let isRepeat = false;
-					for(var i = 0; i < data.data.history.length; i++){
-						if(data.data.history[i] == this.text) isRepeat = true
+					for(var i = 0; i < findRoom(id).data.history.length; i++){
+						if(findRoom(id).data.history[i] == city) isRepeat = true
 					}
 					if(!isRepeat){
-						this.checkCity(this.text)
+						message = addCity(city, id);
 					}
 					else{
-						ReactDOM.render(<Notification text='Такой город уже был!' />, document.getElementById('notification'))
+						message.status = 'Такой город уже был!';
 					}
 				}
 				else{
-					ReactDOM.render(<Notification text={"Город должен начинаться с буквы '" + this.letter + "'"} />, document.getElementById('notification'))
+					message.status = "Город должен начинаться с буквы '" + findRoom(id).data.letter + "'";
 				}
 				}
 			else{
-				ReactDOM.render(<Notification text="Поле не должно быть пустым" />, document.getElementById('notification'))
+				message.status = 'Поле не должно быть пустым'
 			}
 		}
+		return message
 	}
 
 
