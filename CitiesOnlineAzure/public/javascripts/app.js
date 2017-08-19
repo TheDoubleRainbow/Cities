@@ -101,7 +101,7 @@ class Input extends React.Component{
 	checkCity(city){
 		var that = this
 		axios.get('https://maps.googleapis.com/maps/api/geocode/json?address='+ city +'&key=AIzaSyB81xDY0BEAdi4uv-izLsDS4rnjGb1UgYg').then(function (response) {
-    		if(response.data.results[0].address_components[0].short_name == city){
+    		if(response.data.results[0].types[0]=='locality'){
     			console.log('oo')
     			if(!that.started){
     				axios.get('/sendCity?city='+city+'&id='+data.id)
