@@ -54,7 +54,7 @@ class Input extends React.Component{
 	componentDidMount() {
 		var that = this;
 		setInterval(function(){
-			axios.get('/getData?id='+data.id)
+			axios.get('/getData?id='+data.id+'&user='+user)
   			.then(function (response) {
   				if(data != response.data.data){
    					data = response.data.data;
