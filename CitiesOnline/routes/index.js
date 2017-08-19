@@ -13,7 +13,12 @@ router.get('/', function(req,res){
 router.get('/game', function(req, res, next) {
 	if(req.query.id){
 		if(findRoom(req.query.id)){
-			res.render('game', {room: findRoom(req.query.id)});
+			if(findRoom(req.query.id).users < 2){
+				res.render('game', {room: findRoom(req.query.id)});
+			}
+			else{
+				res.render('rooms', {rooms: rooms});
+			}
 		}
 		else{
 			res.render('rooms', {rooms: rooms});
@@ -48,12 +53,14 @@ router.get('/addRoom', function(req, res){
 });
 
 router.get('/getData', function(req, res, next) {
-  res.send('respond with a resource');
+  var id = req.query.id;
+  res.send({status: 'ok', data: findRoom(id)});
 });
 
 router.get('/sendCity', function(req, res, next) {
   let city = req.query.city;
-  res.send(checkCity(city, 1))
+  let id = req.query.id;
+  res.send(checkCity(city, id))
 
 });
 

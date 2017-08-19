@@ -18,7 +18,6 @@ class Notification extends React.Component{
 		this.delay = false;
 		this.notification = document.getElementById('notification');
 	}
-
 	animate(){
 		if(!this.delay){
 			this.delay = true;
@@ -45,11 +44,29 @@ class Input extends React.Component{
 		super(props),
 		this.started = false,
 		this.text = '',
-		this.letter = '',
+		this.letter = data.letter,
 		this.setText = this.setText.bind(this),
 		this.checkCity = this.checkCity.bind(this),
 		this.emitSubmit = this.emitSubmit.bind(this)
 
+	}
+
+	componentDidMount() {
+		var that = this;
+		setInterval(function(){
+			axios.get('/getData?id='+data.id)
+  			.then(function (response) {
+  				if(data != response.data.data){
+   					data = response.data.data;
+   					that.letter = data.data.letter;
+  					ReactDOM.render(<Input />, document.getElementById('input'));
+  					ReactDOM.render(<History />, document.getElementById('history'));
+  				}
+ 			 })
+  			.catch(function (error) {
+   				console.log(error);
+  			});
+		}, 1000)
 	}
 
 	setText(e) {
@@ -87,7 +104,7 @@ class Input extends React.Component{
     		if(response.data.results[0].address_components[0].short_name == city){
     			console.log('oo')
     			if(!that.started){
-    				axios.get('/sendCity?city='+city)
+    				axios.get('/sendCity?city='+city+'&id='+data.id)
   					.then(function (response) {
   						if(response.data.status == 'ok'){
   							data = response.data.data;
