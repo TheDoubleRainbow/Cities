@@ -14,11 +14,12 @@ html.no-js(lang='en')
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js")
 	body
 		.row
+			#notification.col-md-4.col-md-offset-4.col-lg-4.col-lg-offset-4.col-sm-8.col-sm-offset-2.col-xs-8
 			header
 				#name.col-md-4.col-lg-4.col-sm-4.col-xs-4 Cities
-				#chooseRoom.col-md-4.col-lg-4.col-sm-4.col-xs-4 Choose room:
-				#createRoom.col-md-4.col-lg-4.col-sm-4.col-xs-4 Create room 
-					span#plus +
+				#chooseRoom.col-md-4.col-lg-4.col-sm-4.col-xs-4 Выберите комнату:
+				#react-room.col-md-4.col-lg-4.col-sm-4.col-xs-4
+					
 			#rooms.col-md-8.col-md-offset-2
 				each room in rooms
 					a(href="/game?id="+room.id)

@@ -97,49 +97,6 @@ class Input extends React.Component{
 		data.data.history.push(newCity);
 	}
 
-	submit() {
-		if(!this.started){
-			if(this.text != '' && this.text != '-'){
-				if(this.text.length > 1){
-					let isRepeat = false;
-					for(var i = 0; i < data.data.history.length; i++){
-						if(data.data.history[i] == this.text) isRepeat = true
-					}
-					if(!isRepeat){
-						this.checkCity(this.text)
-					}
-				}
-				else{
-					ReactDOM.render(<Notification text='Введите корректный город' />, document.getElementById('notification'))
-				}
-			}
-			else{
-				ReactDOM.render(<Notification text='Поле не должно быть пустым' />, document.getElementById('notification'))
-			}
-		}
-		else{
-			if(this.text != '' && this.text != '-'){
-				if(this.text[0].toUpperCase() == this.letter && this.text.length > 1){
-					let isRepeat = false;
-					for(var i = 0; i < data.history.length; i++){
-						if(data.data.history[i] == this.text) isRepeat = true
-					}
-					if(!isRepeat){
-						this.checkCity(this.text)
-					}
-					else{
-						ReactDOM.render(<Notification text='Такой город уже был!' />, document.getElementById('notification'))
-					}
-				}
-				else{
-					ReactDOM.render(<Notification text={"Город должен начинаться с буквы '" + this.letter + "'"} />, document.getElementById('notification'))
-				}
-				}
-			else{
-				ReactDOM.render(<Notification text="Поле не должно быть пустым" />, document.getElementById('notification'))
-			}
-		}
-	}
 
 	emitSubmit(e){
 		if(e.key == 'Enter') {
@@ -150,7 +107,7 @@ class Input extends React.Component{
 	checkCity(city){
 		var that = this
 		axios.get('https://maps.googleapis.com/maps/api/geocode/json?address='+ city +'&key=AIzaSyB81xDY0BEAdi4uv-izLsDS4rnjGb1UgYg').then(function (response) {
-    		if(response.data.results[0].types[0]=='locality'){
+    		if(response.data.results[0].address_components[0].short_name == city){
     			if(!that.started){
     				that.updateData(that.text);
 					that.setLetter(that.text);
@@ -198,7 +155,7 @@ class Input extends React.Component{
 ReactDOM.render(<Input />, document.getElementById('input'));
 ReactDOM.render(<History />, document.getElementById('history'));
 ReactDOM.render(<Notification text='Введите первый город' />, document.getElementById('notification'))
-	
+
 
 
 
