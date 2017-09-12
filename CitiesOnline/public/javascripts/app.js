@@ -102,10 +102,16 @@ class Input extends React.Component{
 		var that = this
 		axios.get('https://maps.googleapis.com/maps/api/geocode/json?address='+ city +'&key=AIzaSyB81xDY0BEAdi4uv-izLsDS4rnjGb1UgYg').then(function (response) {
     		if(response.data.results[0].address_components[0].short_name == city){
-    			console.log('oo')
+    			console.log(response.data);
     			if(!that.started){
     				axios.get('/sendCity?city='+city+'&id='+data.id)
   					.then(function (response) {
+  						fetch('https://api.openweathermap.org/data/2.5/weather?q='+ city +'&appid=5f526b2b699005990c5a4868e2fb78c3')
+						.then(function(response) {
+						    response.json().then(function(data) {
+						      ReactDOM.render(<Notification text={'Погода в '+ city + ': ' + data.weather[0].main} />, document.getElementById('notification'))
+						    });
+						 });
   						if(response.data.status == 'ok'){
   							data = response.data.data;
   							that.letter = data.data.letter;
